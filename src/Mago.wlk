@@ -74,16 +74,53 @@ object batalla{
         unMago.sumarEnergiaMagica(energiaTransferida)
         otroMago.restarEnergiaMagica(energiaTransferida)
     }
+
+    //La lógica de desafios entre gremio y mago y gremio y gremio tambien la modelaría acá
 }
 
 class Gremio {
     const miembros = #{}
+    var reservaDeEnergiaMagica = 0
+    
+    method sumarReservaDeEnergiaMagica(unaEnergia){
+        reservaDeEnergiaMagica += unaEnergia
+    }
+
+    method restarReservaDeEnergiaMagica(unaEnergia){
+        reservaDeEnergiaMagica -= unaEnergia 
+    }
 
     method poderTotal(){
+        self.verificarQueElGremioSeaValido()
         return miembros.map({unMago => unMago.poderTotal()}).sum()
     }
 
+    method resistenciaMagicaTotal(){
+        self.verificarQueElGremioSeaValido()
+        return miembros.map({unMago => unMago.resistenciaMagica()}).sum()
+    }
+
+    method calcularReservaDeEnergiaMagica(){
+        self.verificarQueElGremioSeaValido()
+        reservaDeEnergiaMagica = miembros.map({unMago => unMago.energiaMagica()}).sum()
+    }
+    //Se que mapeo varias veces a miembros pero me parece una forma correcta por mas de 
+    //repetir logica ya que el parametro es distinto en cada caso
+
     method nuevoMiembro(unMago){
         miembros.add(unMago)
+    }
+
+    method verificarQueElGremioSeaValido(){
+        if(miembros.size() < 2) {
+            throw new Exception(message = "El gremio debe tener al menos 2 miembros!")
+        }
+    }
+    //Como no me interesa capturar ninguna de las dos excepciones de mi programa las
+    //dejo como Excepciones simples
+
+    //Accessors
+    method reservaDeEnergiaMagica(nuevasReservas){
+        reservaDeEnergiaMagica = nuevasReservas
     }
 }

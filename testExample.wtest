@@ -1,6 +1,16 @@
 import src.Mago.*
 import src.ObjetosMagicos.*
 describe "group of tests for magos y objetos" {
+    const messi = new Mago(
+      objetosMagicos = [new Varita(), new Tunica(), new TunicaEpica(), new Amuleto(), ojota],
+      poderInnato = 10000,
+      resistenciaMagica = 300,
+      nombre = "messi",
+      categoria = magoVeterano,
+      energiaMagica = 200
+    )
+
+
     const harry = new Mago(
       objetosMagicos = [new Varita(), new Tunica(), new TunicaEpica(), new Amuleto(), ojota],
       poderInnato = 10,
@@ -47,6 +57,12 @@ describe "group of tests for magos y objetos" {
     )
 
     const gremio = new Gremio(miembros = #{harry, ron, hermione})
+    const gremioTurbio = new Gremio(miembros = #{voldemor})
+    const gremioMalvado = new Gremio(miembros = #{voldemort, voldemor})
+
+  test "messi debe lanzar una excepcion"{
+    assert.throwsException({ messi.devolverSiEsPosibleElPoderInnato()})
+  }
   test "Calcular el poder total de un mago" {
     assert.equals(15600, harry.poderTotal())
     assert.equals(210, ron.poderTotal())
@@ -70,5 +86,17 @@ describe "group of tests for magos y objetos" {
   test "voldemort desafia a harry"{
     batalla.desafia(voldemort, harry)
     assert.equals(150, harry.energiaMagica())
+  }
+
+  test "el poder total del gremio es"{
+    assert.equals(17810, gremio.poderTotal())
+  }
+
+  test "gremio turbio debe lanzar una excepcion"{
+    assert.throwsException({gremioTurbio.verificarQueElGremioSeaValido()})
+  }
+
+  test "el lider del gremio es harry"{
+    assert.equals(harry, gremio.liderDelGremio())
   }
 }
