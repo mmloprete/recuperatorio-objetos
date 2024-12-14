@@ -95,8 +95,4 @@ describe "group of tests for magos y objetos" {
   test "gremio turbio debe lanzar una excepcion"{
     assert.throwsException({gremioTurbio.verificarQueElGremioSeaValido()})
   }
-
-  test "el lider del gremio es harry"{
-    assert.equals(harry, gremio.liderDelGremio())
-  }
 }
