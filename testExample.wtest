@@ -1,9 +1,74 @@
-import example.pepita
+import src.Mago.*
+import src.ObjetosMagicos.*
+describe "group of tests for magos y objetos" {
+    const harry = new Mago(
+      objetosMagicos = [new Varita(), new Tunica(), new TunicaEpica(), new Amuleto(), ojota],
+      poderInnato = 10,
+      resistenciaMagica = 300,
+      nombre = "harry",
+      categoria = magoVeterano,
+      energiaMagica = 200
+    )
 
-describe "group of tests for pepita" {
+    const ron = new Mago(
+      objetosMagicos = [ojota],
+      poderInnato = 7,
+      resistenciaMagica = 50,
+      nombre = "ron",
+      categoria = magoAprendiz,
+      energiaMagica = 200
+    )
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+    const voldemort = new Mago(
+      objetosMagicos = [new Varita(valorBaseDePoder = 50000), new Varita(valorBaseDePoder = 50000)],
+      poderInnato = 10,
+      nombre = "voldemort",
+      resistenciaMagica = 99999,
+      categoria = magoInmortal,
+      energiaMagica = 1000
+    )
+
+    const voldemor = new Mago(
+      objetosMagicos = [new Varita(valorBaseDePoder = 50000), new Varita(valorBaseDePoder = 50000)],
+      poderInnato = 10,
+      nombre = "voldemor",
+      resistenciaMagica = 99999,
+      categoria = magoInmortal,
+      energiaMagica = 1000
+    )
+
+    const hermione = new Mago(
+      objetosMagicos = [new Amuleto()],
+      poderInnato = 10,
+      nombre = "hermione",
+      resistenciaMagica = 1000,
+      categoria = magoVeterano,
+      energiaMagica = 1000
+    )
+
+    const gremio = new Gremio(miembros = #{harry, ron, hermione})
+  test "Calcular el poder total de un mago" {
+    assert.equals(15600, harry.poderTotal())
+    assert.equals(210, ron.poderTotal())
+    assert.equals(1000000, voldemort.poderTotal())
+    assert.equals(1500000, voldemor.poderTotal())
+    assert.equals(2000, hermione.poderTotal())
   }
 
+  test "harry desafia a ron" {
+    batalla.desafia(harry, ron)
+    assert.equals(100, ron.energiaMagica())
+    assert.equals(300, harry.energiaMagica())
+  }
+
+  test "ron desafia a harry"{
+    batalla.desafia(ron, harry)
+    assert.equals(200, ron.energiaMagica())
+    assert.equals(200, harry.energiaMagica())
+  }
+
+  test "voldemort desafia a harry"{
+    batalla.desafia(voldemort, harry)
+    assert.equals(150, harry.energiaMagica())
+  }
 }
